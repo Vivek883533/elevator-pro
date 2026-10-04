@@ -59,8 +59,8 @@
   --color-sunday: var(--sunday);
   --color-highlight: var(--highlight);
   --color-canvas: var(--canvas);
-  --font-sans: 'IBM Plex Sans', ui-sans-serif, system-ui, sans-serif;
-  --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+  --font-sans: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
   --color-sidebar: var(--sidebar);
   --color-sidebar-foreground: var(--sidebar-foreground);
   --color-sidebar-primary: var(--sidebar-primary);
@@ -169,27 +169,106 @@
   }
 }
 
-body { font-family: var(--font-sans); }
-.print-only { display: none; }
+body {
+  font-family: var(--font-sans);
+}
+.print-only {
+  display: none;
+}
 @media print {
-  @page { size: A4; margin: 0; }
-  html, body { background: #fff !important; }
-  .no-print { display: none !important; }
-  .print-only { display: block !important; }
-  .print-only .quote-sheet { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-  body > * { height: auto !important; }
+  @page {
+    size: A4;
+    margin: 0;
+  }
+  html,
+  body {
+    background: #fff !important;
+  }
+  .no-print {
+    display: none !important;
+  }
+  .print-only {
+    display: block !important;
+  }
+  .print-only .quote-sheet {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  body > * {
+    height: auto !important;
+  }
 }
 
 /* Attendance register print (A4 landscape) */
-@page landscape { size: A4 landscape; margin: 8mm; }
-.att-print { page: landscape; font-family: Arial, sans-serif; color: #000; font-size: 8px; width: 100%; }
-.att-head { display: flex; justify-content: space-between; align-items: flex-end; border-bottom: 2px solid #000; padding-bottom: 4px; margin-bottom: 6px; font-size: 10px; }
-.att-table { width: 100%; table-layout: fixed; border-collapse: collapse; }
-.att-table th, .att-table td { border: 0.6pt solid #444; height: 24px; text-align: center; padding: 0 1px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
-.att-table th { background: #e5e7eb; font-size: 8px; }
-.att-table .sun { background: #f3f4f6; }
-.att-foot { display: flex; justify-content: space-between; margin-top: 18px; font-size: 9px; }
-@media print { .att-print * { -webkit-print-color-adjust: exact; print-color-adjust: exact; } }
-@media print { [data-sonner-toaster], section[aria-label^="Notifications"] { display: none !important; } .min-h-screen { min-height: 0 !important; background: #fff !important; } }
-.prose ul { list-style-type: disc; padding-left: 1.5rem; }
-.prose ol { list-style-type: decimal; padding-left: 1.5rem; }
+@page landscape {
+  size: A4 landscape;
+  margin: 8mm;
+}
+.att-print {
+  page: landscape;
+  font-family: Arial, sans-serif;
+  color: #000;
+  font-size: 8px;
+  width: 100%;
+}
+.att-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  border-bottom: 2px solid #000;
+  padding-bottom: 4px;
+  margin-bottom: 6px;
+  font-size: 10px;
+}
+.att-table {
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
+}
+.att-table th,
+.att-table td {
+  border: 0.6pt solid #444;
+  height: 24px;
+  text-align: center;
+  padding: 0 1px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.att-table th {
+  background: #e5e7eb;
+  font-size: 8px;
+}
+.att-table .sun {
+  background: #f3f4f6;
+}
+.att-foot {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 18px;
+  font-size: 9px;
+}
+@media print {
+  .att-print * {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}
+@media print {
+  [data-sonner-toaster],
+  section[aria-label^="Notifications"] {
+    display: none !important;
+  }
+  .min-h-screen {
+    min-height: 0 !important;
+    background: #fff !important;
+  }
+}
+.prose ul {
+  list-style-type: disc;
+  padding-left: 1.5rem;
+}
+.prose ol {
+  list-style-type: decimal;
+  padding-left: 1.5rem;
+}

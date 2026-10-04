@@ -1,18 +1,34 @@
 import { useEffect, useState } from "react";
 
 export type Status = "P" | "A" | "HD";
-export interface Employee { id: string; name: string; role: string; phone: string; active: boolean }
-interface DB { employees: Employee[]; records: Record<string, Status> } // key: yyyy-mm-dd|empId
+export interface Employee {
+  id: string;
+  name: string;
+  role: string;
+  phone: string;
+  active: boolean;
+}
+interface DB {
+  employees: Employee[];
+  records: Record<string, Status>;
+} // key: yyyy-mm-dd|empId
 
 const KEY = "aayush-attendance-v1";
 let cache: DB | null = null;
 const listeners = new Set<() => void>();
 
-export const ymd = (d: Date) => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+export const ymd = (d: Date) =>
+  `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
 export const rkey = (date: string, empId: string) => `${date}|${empId}`;
 
 function seed(): DB {
-  const e = (id: string, name: string, role: string, phone: string, active = true): Employee => ({ id, name, role, phone, active });
+  const e = (
+    id: string,
+    name: string,
+    role: string,
+    phone: string,
+    active = true,
+  ): Employee => ({ id, name, role, phone, active });
   const employees = [
     e("e1", "Rajesh Solanki", "Senior Lift Technician", "+91 98250 11234"),
     e("e2", "Mahesh Parmar", "Lift Technician", "+91 99250 22341"),
@@ -42,36 +58,67 @@ function seed(): DB {
 
 function load(): DB {
   if (cache) return cache;
-  try { const raw = localStorage.getItem(KEY); if (raw) return (cache = JSON.parse(raw)); } catch { /* ignore */ }
+  try {
+    const raw = localStorage.getItem(KEY);
+    if (raw) return (cache = JSON.parse(raw));
+  } catch {
+    /* ignore */
+  }
   cache = seed();
   localStorage.setItem(KEY, JSON.stringify(cache));
   return cache;
 }
-function persist(db: DB) { cache = db; localStorage.setItem(KEY, JSON.stringify(db)); listeners.forEach((l) => l()); }
+function persist(db: DB) {
+  cache = db;
+  localStorage.setItem(KEY, JSON.stringify(db));
+  listeners.forEach((l) => l());
+}
 
 export function useAttendance() {
   const [db, setDb] = useState<DB | null>(null);
-  useEffect(() => { const f = () => setDb({ ...load() }); f(); listeners.add(f); return () => { listeners.delete(f); }; }, []);
+  useEffect(() => {
+    const f = () => setDb({ ...load() });
+    f();
+    listeners.add(f);
+    return () => {
+      listeners.delete(f);
+    };
+  }, []);
   return db;
 }
 
 export function setStatus(date: string, empId: string, s: Status | null) {
-  const db = load(); const records = { ...db.records };
-  if (s) records[rkey(date, empId)] = s; else delete records[rkey(date, empId)];
+  const db = load();
+  const records = { ...db.records };
+  if (s) records[rkey(date, empId)] = s;
+  else delete records[rkey(date, empId)];
   persist({ ...db, records });
 }
 export function setMany(date: string, ids: string[], s: Status) {
-  const db = load(); const records = { ...db.records };
-  ids.forEach((id) => { records[rkey(date, id)] = s; });
+  const db = load();
+  const records = { ...db.records };
+  ids.forEach((id) => {
+    records[rkey(date, id)] = s;
+  });
   persist({ ...db, records });
 }
 export function upsertEmployee(e: Employee) {
   const db = load();
-  persist({ ...db, employees: db.employees.some((x) => x.id === e.id) ? db.employees.map((x) => (x.id === e.id ? e : x)) : [...db.employees, e] });
+  persist({
+    ...db,
+    employees: db.employees.some((x) => x.id === e.id)
+      ? db.employees.map((x) => (x.id === e.id ? e : x))
+      : [...db.employees, e],
+  });
 }
-export function deleteEmployee(id: string) { const db = load(); persist({ ...db, employees: db.employees.filter((x) => x.id !== id) }); }
+export function deleteEmployee(id: string) {
+  const db = load();
+  persist({ ...db, employees: db.employees.filter((x) => x.id !== id) });
+}
 
 /** Active employees, plus inactive ones that have any record within the given dates (history preserved). */
 export function sheetEmployees(db: DB, dates: string[]) {
-  return db.employees.filter((e) => e.active || dates.some((d) => db.records[rkey(d, e.id)]));
+  return db.employees.filter(
+    (e) => e.active || dates.some((d) => db.records[rkey(d, e.id)]),
+  );
 }

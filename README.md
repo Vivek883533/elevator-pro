@@ -3,8 +3,10 @@
 Build a simple, professional, and highly dynamic Quotation Maker module for Aayush Elevator in React with Vite and TypeScript, populated with realistic dummy data.
 
 Key requirements:
+
 1. Core Concept: Create Template Once → Save It → Reuse It → Modify When Required → Generate Quotation. Include pre-built templates for Aayush Elevator (Standard Installation, Modernization, Elevator AMC Comprehensive/Non-Comprehensive, Repair Work).
 2. Quotation Structure & Configurable Sections:
+
 - Company Header & Logo (Aayush Elevator branding, contact, GSTIN)
 - Quotation Number, Date, Validity
 - Customer & Site Details (Society/Project Name, Contact Person, Address, GST)
@@ -16,11 +18,15 @@ Key requirements:
 - Bank Details (NEFT/RTGS/IMPS/UPI)
 - Authorized Signature & Company Stamp
 - Footer
+
 3. Dynamic Customization & Styling:
+
 - Highly flexible styling: allow changing background colors, text colors, font sizes, alignments, borders, and margins on sections and individual table cells so the user isn't restricted.
 - Section management: add, remove, reorder, hide/show sections.
 - Add and edit custom fields and columns.
+
 4. Quotation Workflow & Live Preview:
+
 - Split-screen workspace: structured editor controls on the left and a live, zoomable 1:1 A4 print-ready sheet preview on the right.
 - Actions: Save Template, Duplicate, Export/Download PDF, Print, Share.
 - Quotation History dashboard to view, edit, duplicate, or print previously created quotations.

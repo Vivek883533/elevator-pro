@@ -16,9 +16,13 @@ export function AppHeader({ subtitle }: { subtitle: string }) {
       <div className="mx-auto flex max-w-7xl items-center gap-x-4 px-4 sm:px-6 py-3">
         {/* Brand */}
         <div className="flex min-w-0 flex-1 items-center gap-3">
-          <div className="grid h-10 w-10 shrink-0 place-items-center rounded-md border-b-4 border-highlight bg-primary-foreground font-extrabold text-primary">AE</div>
+          <div className="grid h-10 w-10 shrink-0 place-items-center rounded-md border-b-4 border-highlight bg-primary-foreground font-extrabold text-primary">
+            AE
+          </div>
           <div className="min-w-0">
-            <div className="truncate text-lg font-bold leading-tight">Aayush Elevator</div>
+            <div className="truncate text-lg font-bold leading-tight">
+              Aayush Elevator
+            </div>
             <div className="truncate text-xs opacity-75">{subtitle}</div>
           </div>
         </div>
@@ -26,9 +30,15 @@ export function AppHeader({ subtitle }: { subtitle: string }) {
         {/* Desktop nav */}
         <nav className="hidden sm:flex gap-1">
           {links.map((l) => (
-            <Link key={l.to} to={l.to} activeOptions={{ exact: true }}
+            <Link
+              key={l.to}
+              to={l.to}
+              activeOptions={{ exact: true }}
               className="rounded-md px-3 py-1.5 text-sm font-medium opacity-80 hover:bg-primary-foreground/10 hover:opacity-100"
-              activeProps={{ className: "bg-primary-foreground/15 opacity-100" }}>
+              activeProps={{
+                className: "bg-primary-foreground/15 opacity-100",
+              }}
+            >
               {l.label}
             </Link>
           ))}
@@ -53,7 +63,9 @@ export function AppHeader({ subtitle }: { subtitle: string }) {
               to={l.to}
               activeOptions={{ exact: true }}
               className="block rounded-md px-3 py-2.5 text-sm font-medium opacity-80 hover:bg-primary-foreground/10 hover:opacity-100"
-              activeProps={{ className: "bg-primary-foreground/15 opacity-100" }}
+              activeProps={{
+                className: "bg-primary-foreground/15 opacity-100",
+              }}
               onClick={() => setNavOpen(false)}
             >
               {l.label}
